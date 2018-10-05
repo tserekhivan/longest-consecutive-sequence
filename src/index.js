@@ -1,23 +1,12 @@
 module.exports = function longestConsecutiveLength(array) {
+  let countMax = 0;
 
-  if (array.length == 0) return 0;
-  let count = [];
-  array.reduce(function(current, item, index, arr) {
-    if (arr[index+1] - item == 1) {
-      count.push((current+1));
-      return ++current;
-    } else {
-      count.push(1);
-      return 1;
-    }
+  array.reduce((current, item, index, arr) => {
+    countMax = Math.max(countMax, current);
+    const conditionOne = arr[index+1] - item === 1;
+    const conditionTwo = arr[index+1] - item === -1;
+    return (conditionOne || conditionTwo) ? ++current : 1;
   }, 1);
 
-  let countMax = 0;
-  count.forEach(function(item) {
-  if (item > countMax) {
-    countMax = item;
-  }
-    
-  });
   return countMax;
 }
